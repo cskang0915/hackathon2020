@@ -1,6 +1,7 @@
 # Test whether an Emergency signal is present in an audio sample
 from em_detection import *
 from time import sleep
+import os
 
 # Read the test file
 
@@ -14,10 +15,14 @@ def run_detection(test_file):
     classes = predict_probability(y, scaler)
     return classes
 
+def iterate_delete(directory):
+    while True: 
+        if not os.listdir(directory):
+           sleep(10)
+        else:
+            for filename in os.listdir(directory):
+                run_detection(filename)
+                os.remove(filename)
+
 if __name__ == "__main__":
     print(run_detection("../audio/sirena-ambulanza.wav"))
-#     while True: 
-#         if 
-#             run_detection()
-#         else:
-#             sleep(5)
