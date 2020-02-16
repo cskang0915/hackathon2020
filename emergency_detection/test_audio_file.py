@@ -17,12 +17,13 @@ def run_detection(test_file):
 
 def iterate_delete(directory):
     while True: 
+        classes = []
         if not os.listdir(directory):
            sleep(10)
         else:
             for filename in os.listdir(directory):
-                run_detection(filename)
+                classes = run_detection(filename)
                 os.remove(filename)
 
 if __name__ == "__main__":
-    print(run_detection("../audio/sirena-ambulanza.wav"))
+    iterate_delete('./audio')

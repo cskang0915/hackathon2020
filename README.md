@@ -10,7 +10,7 @@ FED 15
 ## Recording Server
 
 * Go to recording_server/samples/cpp and run: make 
-* This generates a record local file. Run that via: ./recorder_local --appId da39ffafe97b4728846a9d72153db043  --channel test --uid 0 --channelProfile 0 --appliteDir recording_server/bin
+* This generates a record local file. Run that via: ./recorder_local --appId da39ffafe97b4728846a9d72153db043  --channel test --uid 0 --appliteDir recording_server/bin
 
 # Reference Material Used: 
 

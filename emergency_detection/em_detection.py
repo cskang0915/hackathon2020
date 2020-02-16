@@ -36,6 +36,7 @@ from keras.callbacks import EarlyStopping
 from keras.models import load_model
 import tensorflow as tf
 from keras import backend as K
+import requests 
 K.set_image_dim_ordering('th')
 
 # Supress Tensorflow error logs
@@ -205,11 +206,12 @@ def clip_level_prediction(model, X_test, Y_test):
     
 
 def predict_probability(y, scaler):
+    API_ENDPOINT = 'http://10.3.18.204:8080/'
     mfccs_list = extract_mfccs(y)
     scaler.transform(mfccs_list)
     count = 0
     N = 20 # Window size
-    th = 0.5 # Minimum probabilty value for Em presence
+    th = 0.65 # Minimum probabilty value for Em presence
 
     model = load_model('model2.h5')
 
@@ -226,6 +228,8 @@ def predict_probability(y, scaler):
     if prob > th:
         #print("Em")
         class_list.append(1)
+        data = {'emergency_vehicle': 1}
+        requests.post(url = API_ENDPOINT, data = data) 
     else:
         #print("Non-em")
         class_list.append(0)
@@ -240,6 +244,8 @@ def predict_probability(y, scaler):
         if prob > th:
             #print("Em")
             class_list.append(1)
+            data = {'emergency_vehicle': 1}
+            requests.post(url = API_ENDPOINT, data = data) 
         else:
             #print("Non-em")
             class_list.append(0)
